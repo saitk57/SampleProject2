@@ -1,0 +1,56 @@
+﻿@model List<EntityLayer.Concrete.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table id="tbl1" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>AD</th>
+
+            <th>FİYAT</th>
+            <th>RESİM</th>
+            @*<th>ALTKATEGORİ</th>
+                <th>KATEGORİ</th>*@
+            <th>Sil</th>
+            <th>Güncelle</th>
+            <th>Detaylar</th>
+        </tr>
+
+
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.Name</td>
+
+                <td>@x.Price</td>
+                <td><img src="~/ProductImageFiles/@x.Image" width="65" height="110" alt="" /></td>
+                @*<td>@x.SubCategory.Name</td>
+                    <td>@x.SubCategory.Category.Name</td>*@
+                <td>@Html.ActionLink("Sil", "DeleteProduct", new { x.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istediğinize eminmisiniz?.')" })</td>
+                <td><a href="/Product/UpdateProduct/@x.Id" class="btn btn-success">Güncelle</a></td>
+                <td><a href="/Product/ProductDetail/@x.Id" class="btn btn-primary">Ürün Detay</a></td>
+
+            </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+<br />
+
+@*@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new { page }))*@
+
+<a href="/Product/AddProduct/" class="btn btn-primary">Yeni Ürün Ekle</a>
+<br />
